@@ -11,4 +11,27 @@ const PlayerStatus = (status: Status) => {
   else return null;
 };
 
-export { PlayerStatus };
+export type Result = 'Computer' | 'Player 1' | 'Tie';
+
+const playerResult: (player1Status: Status, player2Status: Status) => Result = (
+  player1Status: Status,
+  player2Status: Status,
+) => {
+  if (
+    (player1Status === 'Rock' && player2Status === 'Paper') ||
+    (player1Status === 'Paper' && player2Status === 'Scissors') ||
+    (player1Status === 'Scissors' && player2Status === 'Rock')
+  ) {
+    return 'Computer';
+  } else if (
+    (player1Status === 'Rock' && player2Status === 'Scissors') ||
+    (player1Status === 'Paper' && player2Status === 'Rock') ||
+    (player1Status === 'Scissors' && player2Status === 'Paper')
+  ) {
+    return 'Player 1';
+  } else {
+    return 'Tie';
+  }
+};
+
+export { PlayerStatus, playerResult };
