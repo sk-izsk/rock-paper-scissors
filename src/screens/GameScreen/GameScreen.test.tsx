@@ -1,19 +1,12 @@
 import { render } from '@testing-library/react';
 import React from 'react';
 import { TestContextProvider } from '../../TestContextProvider';
-import { CardContainer } from './CardContainer';
+import { GameScreen } from './GameScreen';
 
-const mockData = {
-  inset: true,
-  cardAction: <div>mock</div>,
-  cardLoading: true,
-  cardBordered: true,
-};
-
-test('CardContainer renders correctly', () => {
+test('GameScreen renders correctly', () => {
   const { asFragment } = render(
     <TestContextProvider>
-      <CardContainer {...mockData} />
+      <GameScreen />
     </TestContextProvider>,
   );
   expect(asFragment()).toMatchSnapshot();

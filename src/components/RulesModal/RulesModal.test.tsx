@@ -1,19 +1,17 @@
 import { render } from '@testing-library/react';
 import React from 'react';
 import { TestContextProvider } from '../../TestContextProvider';
-import { CardContainer } from './CardContainer';
+import { RulesModal } from './RulesModal';
 
 const mockData = {
-  inset: true,
-  cardAction: <div>mock</div>,
-  cardLoading: true,
-  cardBordered: true,
+  visible: true,
+  onClose: jest.fn(),
 };
 
-test('CardContainer renders correctly', () => {
+test('RulesModal renders correctly', () => {
   const { asFragment } = render(
     <TestContextProvider>
-      <CardContainer {...mockData} />
+      <RulesModal {...mockData} />
     </TestContextProvider>,
   );
   expect(asFragment()).toMatchSnapshot();
