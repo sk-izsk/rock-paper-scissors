@@ -107,7 +107,7 @@ yarn prettier:fix
 
 ## List of Improvement can be done
 
-If I got more I time would focus some of the improvements mentioned below
+If I would get more I time would focus some of the improvements mentioned below
 
 - Add more types in overall project
 - PlayerContainer file gets little congested so I would definitely love to refactor some of the codes.
@@ -115,6 +115,7 @@ If I got more I time would focus some of the improvements mentioned below
 - Would love to use custom hooks in above file that would definitely reduce some of the repeated code.
 - Would love to polish the style a bit further.
 - When we click on 'Play New Game' it reloads the page. Would love to avoid such thing and want to add some different alternate logics.
+- Would love to make more responsive.
 
 <!-- CONTACT -->
 
