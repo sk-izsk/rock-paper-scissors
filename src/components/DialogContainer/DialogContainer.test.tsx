@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import React from 'react';
+import { TestContextProvider } from '../../TestContextProvider';
 import { DialogContainer } from './DialogContainer';
 
 const mockData = {
@@ -12,6 +13,10 @@ const mockData = {
 };
 
 test('DialogContainer renders correctly', () => {
-  const { asFragment } = render(<DialogContainer {...mockData} />);
+  const { asFragment } = render(
+    <TestContextProvider>
+      <DialogContainer {...mockData} />
+    </TestContextProvider>,
+  );
   expect(asFragment()).toMatchSnapshot();
 });

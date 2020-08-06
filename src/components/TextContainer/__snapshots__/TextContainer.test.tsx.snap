@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextContainer renders correctly 1`] = `
+<DocumentFragment>
+  <div>
+    <h6
+      class="_3yPwv _2wZct _11JjB _1uvOH header-0-2-1"
+    >
+      mock header
+    </h6>
+    <p
+      class="_3yPwv _NwSHs _11JjB _1uvOH body-0-2-2"
+    >
+      Mock description
+    </p>
+  </div>
+</DocumentFragment>
+`;
