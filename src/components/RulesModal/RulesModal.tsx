@@ -30,6 +30,13 @@ const listOfRules: string[] = [
   'Rock wins against scissors.',
   'Scissors win against paper.',
   'Paper wins against rock.',
+  'Rock wins against lizard.',
+  'Lizard wins against spock.',
+  'Spock wins against scissors.',
+  'Scissors wins against lizard.',
+  'Lizard wins against paper.',
+  'Paper wins against spock.',
+  'Spock wins against rock.',
 ];
 
 const RulesModal: React.FC<RulesModalProps> = ({ visible, onClose }) => {
@@ -53,10 +60,10 @@ const RulesModal: React.FC<RulesModalProps> = ({ visible, onClose }) => {
       visible={visible}
       onClose={onClose}
     >
-      <TextContainer header='What are the rules of RPS?'>
+      <TextContainer header='What are the rules of Rock paper scissors lizard spock?'>
         Although the game has a lot of complexity to it, the rules to play it are pretty simple. The game is played
         where players deliver hand signals that will represent the elements of the game; rock, paper and scissors. The
-        outcome of the game is determined by 3 simple rules:
+        outcome of the game is determined by 10 simple rules:
         <ul className={classes.ulContainer}>
           {listOfRules.map((rule: string) => (
             <li key={rule}>{rule}</li>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaRegHandPaper, FaRegHandRock, FaRegHandScissors } from 'react-icons/fa';
+import { FaRegHandLizard, FaRegHandPaper, FaRegHandRock, FaRegHandScissors, FaRegHandSpock } from 'react-icons/fa';
 import { createUseStyles } from 'react-jss';
 import { Button } from 'ui-neumorphism';
 import { CustomTheme, theme } from '../../theme';
@@ -11,6 +11,9 @@ export interface ButtonContainerProps {
   handleRock?: () => void;
   handlePaper?: () => void;
   handleScissors?: () => void;
+  handleLizard?: () => void;
+  handleSpock?: () => void;
+  count: number;
 }
 
 const useStyles = createUseStyles((theme: CustomTheme) => ({
@@ -42,6 +45,9 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({
   handlePaper,
   handleRock,
   handleScissors,
+  handleLizard,
+  handleSpock,
+  count,
 }) => {
   const classes = useStyles();
   const [openRuleModal, setOpenRuleModal] = useState<boolean>(false);
@@ -53,19 +59,39 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({
       <Button onClick={handleRuleModal} className={classes.button} rounded bordered>
         Rules
       </Button>
-      <Button onClick={handleRock} className={classes.button} rounded bordered>
+      <Button disabled={count === 5 ? true : false} onClick={handleRock} className={classes.button} rounded bordered>
         <FaRegHandRock className={classes.icon} size={20} color={theme.colors.blue} />
         Rock
       </Button>
-      <Button onClick={handlePaper} className={classes.button} rounded bordered>
+      <Button disabled={count === 5 ? true : false} onClick={handlePaper} className={classes.button} rounded bordered>
         <FaRegHandPaper className={classes.icon} size={20} color={theme.colors.blue} />
         Paper
       </Button>
-      <Button onClick={handleScissors} className={classes.button} rounded bordered>
+      <Button
+        disabled={count === 5 ? true : false}
+        onClick={handleScissors}
+        className={classes.button}
+        rounded
+        bordered
+      >
         <FaRegHandScissors className={classes.icon} size={20} color={theme.colors.blue} />
         Scissors
       </Button>
-      <Button onClick={handleTactical} className={classes.button} rounded bordered>
+      <Button disabled={count === 5 ? true : false} onClick={handleLizard} className={classes.button} rounded bordered>
+        <FaRegHandLizard className={classes.icon} size={20} color={theme.colors.blue} />
+        Lizard
+      </Button>
+      <Button disabled={count === 5 ? true : false} onClick={handleSpock} className={classes.button} rounded bordered>
+        <FaRegHandSpock className={classes.icon} size={20} color={theme.colors.blue} />
+        Spock
+      </Button>
+      <Button
+        disabled={count === 5 ? true : false}
+        onClick={handleTactical}
+        className={classes.button}
+        rounded
+        bordered
+      >
         {tacticalButtonText} Mode
       </Button>
     </div>
