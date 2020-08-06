@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import { Button, H5, H6 } from 'ui-neumorphism';
 import { CustomTheme } from '../../theme';
 import { useValueForTextField } from '../../utils';
-import { finalResult, playerResult, PlayerStatus, Status } from '../../utils/PlayerStatus';
+import { finalResult, playerResult, PlayerStatus, Status, tactical } from '../../utils/PlayerStatus';
 import { ButtonContainer } from '../ButtonContainer/ButtonContainer';
 import { CardContainer } from '../CardContainer/CardContainer';
 import { NameModal } from '../NameModal/NameModal';
@@ -69,7 +69,7 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
   const isMobile: boolean = useMediaQuery({ maxWidth: 780 });
   const [player1Status, setPlayer1Status] = useState<Status>('Rock');
   const [player2Status, setPlayer2Status] = useState<Status>('Rock');
-  const [showResult, setShowResult] = useState<boolean>(false);
+  const [result, setResult] = useState<string>('');
   const [openNameModal, setOpenNameModal] = useState<boolean>(true);
   const [count, setCount] = useState<number>(0);
   const [scoreOfPlayer1, setScoreOfPlayer1] = useState<number>(0);
@@ -135,8 +135,16 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
     const gameResult: Status[] = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock'];
     let gameInterval = setInterval(() => {
       counter++;
-      setShowResult(false);
-      setPlayer2Status(gameResult[Math.floor(Math.random() * gameResult.length)]);
+      setResult('');
+      if (
+        mode === 'Tactical' &&
+        (playerResult(player1Status, player2Status, name) !== 'Computer' ||
+          playerResult(player1Status, player2Status, name) !== 'Tie')
+      ) {
+        setPlayer2Status(tactical(player1Status) as Status);
+      } else {
+        setPlayer2Status(gameResult[Math.floor(Math.random() * gameResult.length)]);
+      }
 
       if (playerResult(player1Status, player2Status, name) === 'Computer') {
         setScoreOfPlayer2(scoreOfPlayer2 + 1);
@@ -149,13 +157,10 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
 
       if (counter > 20) {
         clearInterval(gameInterval);
-
-        setShowResult(true);
+        setResult(playerResult(player1Status, player2Status, name));
       }
     }, 100);
   };
-
-  console.log('this is score of players', count);
 
   return (
     <div className={classes.mainContainer}>
@@ -167,7 +172,7 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
         {Player1Memoized}
         {Player2Memoized}
       </div>
-      {showResult && (
+      {result.length > 0 && (
         <H5 className={classes.header}>
           Round {count} Winner is : {playerResult(player1Status, player2Status, name)}
         </H5>

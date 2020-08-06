@@ -43,4 +43,23 @@ const finalResult = (scoreOfPlayer1: number, scoreOfPlayer2: number, name: strin
   else return name;
 };
 
-export { PlayerStatus, playerResult, finalResult };
+const tactical = (status: Status) => {
+  if (status === 'Rock') {
+    const gameResult = ['Paper', 'Spock'];
+    return gameResult[Math.floor(Math.random() * gameResult.length)];
+  } else if (status === 'Paper') {
+    const gameResult = ['Scissors', 'Lizard'];
+    return gameResult[Math.floor(Math.random() * gameResult.length)];
+  } else if (status === 'Scissors') {
+    const gameResult = ['Spock', 'Rock'];
+    return gameResult[Math.floor(Math.random() * gameResult.length)];
+  } else if (status === 'Lizard') {
+    const gameResult = ['Scissors', 'Rock'];
+    return gameResult[Math.floor(Math.random() * gameResult.length)];
+  } else {
+    const gameResult = ['Lizard', 'Paper'];
+    return gameResult[Math.floor(Math.random() * gameResult.length)];
+  }
+};
+
+export { PlayerStatus, playerResult, finalResult, tactical };

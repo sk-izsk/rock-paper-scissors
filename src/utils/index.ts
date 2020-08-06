@@ -1,2 +1,2 @@
 export { useStatus, useValueForTextField } from './customHook';
-export { finalResult, playerResult, PlayerStatus } from './PlayerStatus';
+export { finalResult, playerResult, PlayerStatus, tactical } from './PlayerStatus';

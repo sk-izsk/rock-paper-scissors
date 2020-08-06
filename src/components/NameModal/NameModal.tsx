@@ -55,7 +55,7 @@ const NameModal: React.FC<NameModalProps> = ({ visible, onClose, value, handleVa
       <TextField
         className={classes.inputContainer}
         width={400}
-        placeholder="Make sure its a string, becoz I didn't use validator.😛"
+        placeholder="Make sure its a string,becoz I didn't use validator.😛"
         value={value}
         onChange={handleValue}
         type='text'
