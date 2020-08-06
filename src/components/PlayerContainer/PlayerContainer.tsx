@@ -4,9 +4,11 @@ import { createUseStyles } from 'react-jss';
 import { useMediaQuery } from 'react-responsive';
 import { H5, H6 } from 'ui-neumorphism';
 import { CustomTheme } from '../../theme';
+import { useValueForTextField } from '../../utils';
 import { playerResult, PlayerStatus, Status } from '../../utils/PlayerStatus';
 import { ButtonContainer } from '../ButtonContainer/ButtonContainer';
 import { CardContainer } from '../CardContainer/CardContainer';
+import { NameModal } from '../NameModal/NameModal';
 
 export interface PlayerContainerProps {}
 
@@ -58,6 +60,8 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
   const [player1Status, setPlayer1Status] = useState<Status>('Rock');
   const [player2Status, setPlayer2Status] = useState<Status>('Rock');
   const [showResult, setShowResult] = useState<boolean>(false);
+  const [openNameModal, setOpenNameModal] = useState<boolean>(true);
+  const [name, handleName] = useValueForTextField('');
   const handleMode = () => (mode === 'Normal' ? setMode('Tactical') : setMode('Normal'));
   const handleRock = () => {
     setPlayer1Status('Rock');
@@ -86,10 +90,12 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
     () => (
       <CardContainer inset={true} cardStyle={classes.cardContainer}>
         {PlayerStatus(player1Status as Status)}
-        <H6>Player 1 : {player1Status}</H6>
+        <H6>
+          {name} : {player1Status}
+        </H6>
       </CardContainer>
     ),
-    [player1Status, classes.cardContainer],
+    [player1Status, classes.cardContainer, name],
   );
 
   const Player2Memoized = useMemo(
@@ -101,6 +107,10 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
     ),
     [player2Status, classes.cardContainer],
   );
+
+  const handleNameModal = () => {
+    setOpenNameModal(false);
+  };
 
   const initiateGame = () => {
     let counter = 0;
@@ -116,10 +126,11 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
     }, 100);
   };
 
-  console.log('this is player status', player1Status, player2Status, playerResult(player1Status, player2Status));
+  console.log('this is player status', player1Status, player2Status, playerResult(player1Status, player2Status, name));
 
   return (
     <div className={classes.mainContainer}>
+      <NameModal visible={openNameModal} value={name} handleValue={handleName} onClose={handleNameModal} />
       <H5 className={classes.header}>
         Mode : <span className={mode === 'Normal' ? classes.greenText : classes.blueText}>{mode}</span>
       </H5>
@@ -127,7 +138,7 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
         {Player1Memoized}
         {Player2Memoized}
       </div>
-      {showResult && <H5 className={classes.header}>Winner is : {playerResult(player1Status, player2Status)}</H5>}
+      {showResult && <H5 className={classes.header}>Winner is : {playerResult(player1Status, player2Status, name)}</H5>}
       <ButtonContainer
         handleRock={handleRock}
         handlePaper={handlePaper}

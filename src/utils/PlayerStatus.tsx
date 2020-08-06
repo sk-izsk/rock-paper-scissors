@@ -15,7 +15,7 @@ const PlayerStatus = (status: Status) => {
 
 export type Result = 'Computer' | 'Player 1' | 'Tie';
 
-const playerResult = (player1Status: Status, computerStatus: Status) => {
+const playerResult = (player1Status: Status, computerStatus: Status, nameOfPlayer: string) => {
   if (
     (computerStatus === 'Paper' && (player1Status === 'Rock' || player1Status === 'Spock')) ||
     (computerStatus === 'Scissors' && (player1Status === 'Paper' || player1Status === 'Lizard')) ||
@@ -31,7 +31,7 @@ const playerResult = (player1Status: Status, computerStatus: Status) => {
     (player1Status === 'Lizard' && (computerStatus === 'Spock' || computerStatus === 'Paper')) ||
     (player1Status === 'Spock' && (computerStatus === 'Scissors' || computerStatus === 'Rock'))
   ) {
-    return 'Player 1';
+    return nameOfPlayer;
   } else {
     return 'Tie';
   }

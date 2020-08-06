@@ -9,4 +9,12 @@ const useStatus = (initialValue: Status) => {
   return [status, handleStatus];
 };
 
-export { useStatus };
+const useValueForTextField = (initialValue: any) => {
+  const [value, setValue] = useState(initialValue);
+  const handleValue = (event: any) => setValue(event.value);
+  const reset = () => setValue(initialValue);
+
+  return [value, handleValue, reset];
+};
+
+export { useStatus, useValueForTextField };
