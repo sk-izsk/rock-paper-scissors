@@ -37,4 +37,10 @@ const playerResult = (player1Status: Status, computerStatus: Status, nameOfPlaye
   }
 };
 
-export { PlayerStatus, playerResult };
+const finalResult = (scoreOfPlayer1: number, scoreOfPlayer2: number, name: string) => {
+  if (scoreOfPlayer1 === scoreOfPlayer2) return 'Tie';
+  else if (scoreOfPlayer2 > scoreOfPlayer1) return 'Computer';
+  else return name;
+};
+
+export { PlayerStatus, playerResult, finalResult };

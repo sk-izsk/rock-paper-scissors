@@ -2,10 +2,10 @@ import clsx from 'clsx';
 import React, { useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { useMediaQuery } from 'react-responsive';
-import { H5, H6 } from 'ui-neumorphism';
+import { Button, H5, H6 } from 'ui-neumorphism';
 import { CustomTheme } from '../../theme';
 import { useValueForTextField } from '../../utils';
-import { playerResult, PlayerStatus, Status } from '../../utils/PlayerStatus';
+import { finalResult, playerResult, PlayerStatus, Status } from '../../utils/PlayerStatus';
 import { ButtonContainer } from '../ButtonContainer/ButtonContainer';
 import { CardContainer } from '../CardContainer/CardContainer';
 import { NameModal } from '../NameModal/NameModal';
@@ -49,6 +49,16 @@ const useStyles = createUseStyles((theme: CustomTheme) => ({
   greenText: {
     color: theme.colors.green,
   },
+  button: {
+    maxWidth: 200,
+    width: '100%',
+    margin: theme.spacing(1),
+  },
+  finalResult: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
 }));
 
 export type Mode = 'Normal' | 'Tactical';
@@ -61,28 +71,36 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
   const [player2Status, setPlayer2Status] = useState<Status>('Rock');
   const [showResult, setShowResult] = useState<boolean>(false);
   const [openNameModal, setOpenNameModal] = useState<boolean>(true);
+  const [count, setCount] = useState<number>(0);
+  const [scoreOfPlayer1, setScoreOfPlayer1] = useState<number>(0);
+  const [scoreOfPlayer2, setScoreOfPlayer2] = useState<number>(0);
   const [name, handleName] = useValueForTextField('');
   const handleMode = () => (mode === 'Normal' ? setMode('Tactical') : setMode('Normal'));
   const handleRock = () => {
     setPlayer1Status('Rock');
+    setCount(count + 1);
     initiateGame();
   };
   const handlePaper = () => {
     setPlayer1Status('Paper');
+    setCount(count + 1);
     initiateGame();
   };
   const handleScissors = () => {
     setPlayer1Status('Scissors');
+    setCount(count + 1);
     initiateGame();
   };
 
   const handleLizard = () => {
     setPlayer1Status('Lizard');
+    setCount(count + 1);
     initiateGame();
   };
 
   const handleSpock = () => {
     setPlayer1Status('Spock');
+    setCount(count + 1);
     initiateGame();
   };
 
@@ -119,14 +137,25 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
       counter++;
       setShowResult(false);
       setPlayer2Status(gameResult[Math.floor(Math.random() * gameResult.length)]);
+
+      if (playerResult(player1Status, player2Status, name) === 'Computer') {
+        setScoreOfPlayer2(scoreOfPlayer2 + 1);
+      } else if (playerResult(player1Status, player2Status, name) === 'Tie') {
+        setScoreOfPlayer1(scoreOfPlayer1 + 0);
+        setScoreOfPlayer2(scoreOfPlayer2 + 0);
+      } else {
+        setScoreOfPlayer1(scoreOfPlayer1 + 1);
+      }
+
       if (counter > 20) {
         clearInterval(gameInterval);
+
         setShowResult(true);
       }
     }, 100);
   };
 
-  console.log('this is player status', player1Status, player2Status, playerResult(player1Status, player2Status, name));
+  console.log('this is score of players', count);
 
   return (
     <div className={classes.mainContainer}>
@@ -138,7 +167,19 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
         {Player1Memoized}
         {Player2Memoized}
       </div>
-      {showResult && <H5 className={classes.header}>Winner is : {playerResult(player1Status, player2Status, name)}</H5>}
+      {showResult && (
+        <H5 className={classes.header}>
+          Round {count} Winner is : {playerResult(player1Status, player2Status, name)}
+        </H5>
+      )}
+      {count === 5 && (
+        <div className={classes.finalResult}>
+          <H5 className={classes.header}>Winner is : {finalResult(scoreOfPlayer1, scoreOfPlayer2, name)}</H5>
+          <Button onClick={() => window.location.reload()} className={classes.button} rounded bordered>
+            Play new game
+          </Button>
+        </div>
+      )}
       <ButtonContainer
         handleRock={handleRock}
         handlePaper={handlePaper}
@@ -147,6 +188,7 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
         tacticalButtonText={mode === 'Normal' ? 'Tactical' : 'Normal'}
         handleLizard={handleLizard}
         handleSpock={handleSpock}
+        count={count}
       />
     </div>
   );
