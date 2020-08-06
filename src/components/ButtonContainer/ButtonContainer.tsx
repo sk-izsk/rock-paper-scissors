@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaRegHandPaper, FaRegHandRock, FaRegHandScissors } from 'react-icons/fa';
+import { FaRegHandLizard, FaRegHandPaper, FaRegHandRock, FaRegHandScissors, FaRegHandSpock } from 'react-icons/fa';
 import { createUseStyles } from 'react-jss';
 import { Button } from 'ui-neumorphism';
 import { CustomTheme, theme } from '../../theme';
@@ -11,6 +11,8 @@ export interface ButtonContainerProps {
   handleRock?: () => void;
   handlePaper?: () => void;
   handleScissors?: () => void;
+  handleLizard?: () => void;
+  handleSpock?: () => void;
 }
 
 const useStyles = createUseStyles((theme: CustomTheme) => ({
@@ -42,6 +44,8 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({
   handlePaper,
   handleRock,
   handleScissors,
+  handleLizard,
+  handleSpock,
 }) => {
   const classes = useStyles();
   const [openRuleModal, setOpenRuleModal] = useState<boolean>(false);
@@ -64,6 +68,14 @@ const ButtonContainer: React.FC<ButtonContainerProps> = ({
       <Button onClick={handleScissors} className={classes.button} rounded bordered>
         <FaRegHandScissors className={classes.icon} size={20} color={theme.colors.blue} />
         Scissors
+      </Button>
+      <Button onClick={handleLizard} className={classes.button} rounded bordered>
+        <FaRegHandLizard className={classes.icon} size={20} color={theme.colors.blue} />
+        Lizard
+      </Button>
+      <Button onClick={handleSpock} className={classes.button} rounded bordered>
+        <FaRegHandSpock className={classes.icon} size={20} color={theme.colors.blue} />
+        Spock
       </Button>
       <Button onClick={handleTactical} className={classes.button} rounded bordered>
         {tacticalButtonText} Mode

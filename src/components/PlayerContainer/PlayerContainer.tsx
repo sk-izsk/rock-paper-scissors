@@ -72,6 +72,16 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
     initiateGame();
   };
 
+  const handleLizard = () => {
+    setPlayer1Status('Lizard');
+    initiateGame();
+  };
+
+  const handleSpock = () => {
+    setPlayer1Status('Spock');
+    initiateGame();
+  };
+
   const Player1Memoized = useMemo(
     () => (
       <CardContainer inset={true} cardStyle={classes.cardContainer}>
@@ -94,7 +104,7 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
 
   const initiateGame = () => {
     let counter = 0;
-    const gameResult: Status[] = ['Rock', 'Paper', 'Scissors'];
+    const gameResult: Status[] = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock'];
     let gameInterval = setInterval(() => {
       counter++;
       setShowResult(false);
@@ -124,6 +134,8 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
         handleScissors={handleScissors}
         handleTactical={handleMode}
         tacticalButtonText={mode === 'Normal' ? 'Tactical' : 'Normal'}
+        handleLizard={handleLizard}
+        handleSpock={handleSpock}
       />
     </div>
   );
