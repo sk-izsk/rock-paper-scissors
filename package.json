@@ -17,6 +17,7 @@
     "react-dom": "^16.13.1",
     "react-icons": "^3.10.0",
     "react-jss": "^10.3.0",
+    "react-responsive": "^8.1.0",
     "react-scripts": "3.4.1",
     "ui-neumorphism": "^1.0.9"
   },
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.159",
+    "@types/react-responsive": "^8.0.2",
     "lint": "^0.7.0",
     "prettier": "^2.0.5",
     "tslint": "^6.1.3",
