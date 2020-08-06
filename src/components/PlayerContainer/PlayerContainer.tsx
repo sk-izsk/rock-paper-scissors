@@ -177,7 +177,7 @@ const PlayerContainer: React.FC<PlayerContainerProps> = () => {
           Round {count} Winner is : {playerResult(player1Status, player2Status, name)}
         </H5>
       )}
-      {count === 5 && (
+      {count === 5 && result.length > 0 && (
         <div className={classes.finalResult}>
           <H5 className={classes.header}>Winner is : {finalResult(scoreOfPlayer1, scoreOfPlayer2, name)}</H5>
           <Button onClick={() => window.location.reload()} className={classes.button} rounded bordered>
